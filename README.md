@@ -1,3 +1,3 @@
 # Simple application to get familiar with Angular 2 && ASP.NET Core 1.1 WebApi. 
  
-[![Build status](https://ci.appveyor.com/api/projects/status/56j79gxk7ak3rekk/branch/master?svg=true)](https://ci.appveyor.com/project/melanore/core-playground/branch/master)
+[![Build status](https://eangelis.visualstudio.com/_apis/public/build/definitions/a79fe2e6-8d74-487b-828d-ad63eac7b32a/2/badge)]
