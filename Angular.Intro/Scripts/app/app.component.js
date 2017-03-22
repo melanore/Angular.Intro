@@ -17,13 +17,14 @@ System.register(["@angular/core"], function (exports_1, context_1) {
         execute: function () {
             AppComponent = (function () {
                 function AppComponent() {
+                    this.title = "Angular intro.";
                 }
                 return AppComponent;
             }());
             AppComponent = __decorate([
                 core_1.Component({
                     selector: "ngintro",
-                    template: "<h1>Angular 2 intro</h1><div>To be continued!...</div>"
+                    template: "\n        <h1>{{title}}</h1>\n        <item-list></item-list>\n    "
                 })
             ], AppComponent);
             exports_1("AppComponent", AppComponent);

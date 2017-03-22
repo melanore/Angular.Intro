@@ -2,6 +2,11 @@
 
 @Component({
     selector: "ngintro",
-    template: `<h1>Angular 2 intro</h1><div>To be continued!...</div>`
+    template: `
+        <h1>{{title}}</h1>
+        <item-list></item-list>
+    `
 })
-export class AppComponent { }
+export class AppComponent {
+    title = "Angular intro."
+}
