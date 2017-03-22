@@ -1,4 +1,5 @@
-﻿/*
+/// <binding AfterBuild='build' Clean='cleanup' />
+/*
 This file is the main entry point for defining Gulp tasks and using Gulp plugins.
 Click here to learn more. https://go.microsoft.com/fwlink/?LinkId=518007
 */
@@ -80,6 +81,8 @@ gulp.task('watch', function () {
 
 // Global cleanup task
 gulp.task('cleanup', ['app_clean', 'js_clean']);
+
+gulp.task('build', ['app', 'js']);
 
 // Define the default task so it will launch all other tasks
 gulp.task('default', ['app', 'js', 'watch']);
