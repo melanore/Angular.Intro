@@ -1,70 +1,51 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Angular.Intro.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Angular.Intro.Controllers
 {
     [Route("api/[controller]")]
     public class ItemsController : Controller
     {
-        private static JsonSerializerSettings DefaultJsonSettings
-            => new JsonSerializerSettings { Formatting = Formatting.Indented };
-
-        private static int DefaultNumberOfItems => 5;
-        private static int MaxNumberOfItems => 100;
+        private const int DefaultNumberOfItems = 5;
+        private const int MaxNumberOfItems = 100;
 
         [HttpGet]
-        public IActionResult Get() => NotFound(new { Error = "not found" });
+        public IActionResult Get() => 
+            NotFound(new { Error = "not found" });
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public ItemViewModel Get(int id) =>
+            SampleItemsSeq().FirstOrDefault(i => i.Id == id);
+
+        [HttpGet("getLatest")]
+        public IEnumerable<ItemViewModel> GetLatest([FromQuery] int? take = DefaultNumberOfItems) =>
+            SampleItemsSeq().OrderByDescending(i => i.CreatedDate);
+
+        [HttpGet("getMostViewed")]
+        public IEnumerable<ItemViewModel> GetMostViewed([FromQuery] int? take = DefaultNumberOfItems) =>
+            SampleItemsSeq().OrderByDescending(i => i.ViewCount);
+
+        [HttpGet("getRandom")]
+        public IEnumerable<ItemViewModel> GetRandom([FromQuery] int? take = DefaultNumberOfItems) =>
+            SampleItemsSeq().OrderBy(i => Guid.NewGuid());
+
+        private static IEnumerable<ItemViewModel> SampleItemsSeq(int num = MaxNumberOfItems)
         {
-            var item = GetSampleItems().FirstOrDefault(i => i.Id == id);
-            return new JsonResult(item, DefaultJsonSettings);
-        }
+            if (num > MaxNumberOfItems) num = MaxNumberOfItems;
+            var date = DateTime.UtcNow.AddDays(-num);
 
-        [HttpGet("getlatest")]
-        public IActionResult GetLatest([FromQuery] int? take = null)
-        {
-            if (take > MaxNumberOfItems) take = MaxNumberOfItems;
-
-            var items = GetSampleItems().OrderByDescending(i => i.CreatedDate).Take(take.GetValueOrDefault(DefaultNumberOfItems));
-            return new JsonResult(items, DefaultJsonSettings);
-        }
-
-        [HttpGet("getmostviewed")]
-        public IActionResult GetMostViewed([FromQuery] int? take = null)
-        {
-            if (take > MaxNumberOfItems) take = MaxNumberOfItems;
-
-            var items = GetSampleItems().OrderByDescending(i => i.ViewCount).Take(take.GetValueOrDefault(DefaultNumberOfItems));
-            return new JsonResult(items, DefaultJsonSettings);
-        }
-
-        [HttpGet("getrandom")]
-        public IActionResult GetRandom([FromQuery] int? take = null)
-        {
-            if (take > MaxNumberOfItems) take = MaxNumberOfItems;
-
-            var items = GetSampleItems().OrderBy(i => Guid.NewGuid()).Take(take.GetValueOrDefault(DefaultNumberOfItems));
-            return new JsonResult(items, DefaultJsonSettings);
-        }
-
-        private static IEnumerable<ItemViewModel> GetSampleItems(int num = 999)
-        {
-            var date = new DateTime(2015, 12, 31).AddDays(-num);
-            for (var id = 1; id <= num; id++) yield return new ItemViewModel
+            return Enumerable.Range(1, num).Select(id => new ItemViewModel
             {
                 Id = id,
-                Title = $"Item {id} Title",
-                Description = $"This is a sample description for item {id}: Lorem ipsum dolor sit amet.",
+                Title = $"Title mock_{id}",
+                Description = $"Lorem ipsum dolor sit amet {id}.",
                 CreatedDate = date.AddDays(id),
                 LastModifiedDate = date.AddDays(id),
                 ViewCount = num - id
-            };
+            });
         }
     }
 }

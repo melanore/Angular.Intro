@@ -1,0 +1,7 @@
+﻿table.items tbody tr {
+    cursor: pointer;
+}
+
+table.items tbody tr.selected {
+    background-color: #cccccc;
+}
