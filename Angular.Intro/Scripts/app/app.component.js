@@ -23,7 +23,7 @@ System.register(["@angular/core"], function (exports_1, context_1) {
             AppComponent = __decorate([
                 core_1.Component({
                     selector: "ngintro",
-                    template: "<h1>Angular 2 intro</h1><div>To be continued...</div>"
+                    template: "<h1>Angular 2 intro</h1><div>To be continued!...</div>"
                 })
             ], AppComponent);
             exports_1("AppComponent", AppComponent);

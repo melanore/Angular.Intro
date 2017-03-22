@@ -62,8 +62,8 @@ gulp.task('js', function () {
     gulp.src(srcPaths.js_rxjs)
         .pipe(gulp.dest(destPaths.js_rxjs));
     return gulp.src(srcPaths.js)
-        .pipe(gp_uglify({ mangle: false })) // disable uglify
-        .pipe(gp_concat('all-js.min.js')) // disable concat
+        //.pipe(gp_uglify({ mangle: false })) // disable uglify
+        //.pipe(gp_concat('all-js.min.js')) // disable concat
         .pipe(gulp.dest(destPaths.js));
 });
 
