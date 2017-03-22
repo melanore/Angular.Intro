@@ -33,7 +33,15 @@ namespace Angular.Intro
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             app.UseDefaultFiles();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers["Cache-Control"] = Configuration["StaticFiles:Headers:Cache-Control"];
+                    ctx.Context.Response.Headers["Pragma"] = Configuration["StaticFiles:Headers:Pragma"];
+                    ctx.Context.Response.Headers["Expires"] = Configuration["StaticFiles:Headers:Expires"];
+                }
+            });
             app.UseMvc();
         }
     }
