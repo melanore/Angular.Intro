@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     gp_concat = require('gulp-concat'),
     gp_sourcemaps = require('gulp-sourcemaps'),
     gp_typescript = require('gulp-typescript'),
-    gp_uglify = require('gulp-uglify');
+    gp_uglify = require('gulp-uglify');
+
 var srcPaths = {
     app: [
         'Scripts/app/main.ts',
@@ -34,7 +35,8 @@ var destPaths = {
     app: 'wwwroot/app/',
     js: 'wwwroot/js/',
     js_angular: 'wwwroot/js/@angular/',
-    js_rxjs: 'wwwroot/js/rxjs/'
+    js_rxjs: 'wwwroot/js/rxjs/'
+
 };
 
 // Compile, minify and create sourcemaps all TypeScript files and place them to wwwroot/ app, together with their js.map files.
@@ -63,13 +65,21 @@ gulp.task('js', function () {
         // .pipe(gp_uglify({ mangle: false })) // disable uglify
         // .pipe(gp_concat('all-js.min.js')) // disable concat
         .pipe(gulp.dest(destPaths.js));
-});// Delete wwwroot/js contents
+});
+
+// Delete wwwroot/js contents
 gulp.task('js_clean', function () {
     return gulp.src(destPaths.js + "*", { read: false })
         .pipe(gp_clean({ force: true }));
-});// Watch specified files and define what to do upon file changes
+});
+
+// Watch specified files and define what to do upon file changes
 gulp.task('watch', function () {
     gulp.watch([srcPaths.app, srcPaths.js], ['app', 'js']);
-});// Global cleanup task
-gulp.task('cleanup', ['app_clean', 'js_clean']);// Define the default task so it will launch all other tasks
-gulp.task('default', ['app', 'js', 'watch']);
+});
+
+// Global cleanup task
+gulp.task('cleanup', ['app_clean', 'js_clean']);
+
+// Define the default task so it will launch all other tasks
+gulp.task('default', ['app', 'js', 'watch']);
