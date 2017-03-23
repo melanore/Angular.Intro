@@ -1,0 +1,14 @@
+﻿<div *ngIf="item" class="item-details">
+    <h2>{{item.title}} - Detail View</h2>
+    <ul>
+        <li>
+            <label>Title:</label>
+            <input [(ngModel)]="item.title" placeholder="Insert the title..." />
+        </li>
+        <li>
+            <label>Description:</label>
+            <textarea [(ngModel)]="item.description"
+                      placeholder="Insert a suitable description..."></textarea>
+        </li>
+    </ul>
+</div>

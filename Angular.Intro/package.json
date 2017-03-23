@@ -1,6 +1,6 @@
 {
   "name": "angular_intro",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "@angular/common": "^2.4.5",
     "@angular/compiler": "^2.4.5",

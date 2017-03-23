@@ -22,15 +22,15 @@ namespace Angular.Intro.Controllers
 
         [HttpGet("getLatest")]
         public IEnumerable<ItemViewModel> GetLatest([FromQuery] int? take = DefaultNumberOfItems) =>
-            SampleItemsSeq().OrderByDescending(i => i.CreatedDate);
+            SampleItemsSeq(take.Value).OrderByDescending(i => i.CreatedDate);
 
         [HttpGet("getMostViewed")]
         public IEnumerable<ItemViewModel> GetMostViewed([FromQuery] int? take = DefaultNumberOfItems) =>
-            SampleItemsSeq().OrderByDescending(i => i.ViewCount);
+            SampleItemsSeq(take.Value).OrderByDescending(i => i.ViewCount);
 
         [HttpGet("getRandom")]
         public IEnumerable<ItemViewModel> GetRandom([FromQuery] int? take = DefaultNumberOfItems) =>
-            SampleItemsSeq().OrderBy(i => Guid.NewGuid());
+            SampleItemsSeq(take.Value).OrderBy(i => Guid.NewGuid());
 
         private static IEnumerable<ItemViewModel> SampleItemsSeq(int num = MaxNumberOfItems)
         {
